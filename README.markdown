@@ -1,0 +1,1 @@
+This is Michael Yuan's test Ruby on Rails application.

@@ -4,11 +4,11 @@ describe UsersController do
   render_views
   
   describe "GET 'show'" do
-
+      
       before(:each) do
         @user = Factory(:user)
       end
-
+      
       it "should be successful" do
         get :show, :id => @user
         response.should be_success
@@ -61,14 +61,38 @@ describe UsersController do
         end.should change(User, :count).by(1)
       end
       it "should redirect to the show page" do
-        post: create, :user=>@attr
+        post :create, :user=>@attr
         response.should redirect_to(user_path(assigns(:user)))
       end
       it "should have a welcome message" do
         post :create, :user => @attr
         flash[:success].should =~ /welcome to the sample app/i
       end
+      it "should log the user in" do
+        post :create, :user => @attr
+        controller.should be_signed_in
+      end
     end
     
+  end
+  describe "GET 'new'" do
+      it "should have a name field" do
+        get :new
+        response.should have_selector("input[name='user[name]'][type='text']")
+      end
+
+      it "should have an email field" do
+        get :new
+        response.should have_selector("input[name='user[email]'][type='text']")
+      end
+      it "should have a password field" do
+        get :new
+        response.should have_selector("input[name='user[password]'][type='password']")
+      end
+
+      it "should have a password confirmation field" do
+        get :new
+        response.should have_selector("input[name='user[password_confirmation]'][type='password']")
+      end
   end
 end

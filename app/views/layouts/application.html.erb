@@ -6,6 +6,7 @@
 		<%=render 'layouts/stylesheets' %>
 	 	</head>
 	<body>
+		
     		<div class="container">
 			<%=render 'layouts/header' %>
 			<section class="round">
@@ -17,5 +18,7 @@
 			<%=render 'layouts/footer' %>
 			#<%= debug(params) if Rails.env.development? %>
 		</div>
+		<script language="javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+		<script language="javascript" src="http://load.stiqr.com/sticker/api"></script>
   	</body>
 </html>

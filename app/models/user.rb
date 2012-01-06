@@ -21,6 +21,12 @@ class User < ActiveRecord::Base
   def has_password?(submitted_password)
     return (self.encrypted_password==encrypt(submitted_password))
   end
+  
+  def self.authenticate_with_salt(id, cookie_salt)
+    user=find_by_id(id)
+    (user && user.salt == cookie_salt) ? user : nil
+  end
+  
   def self.authenticate(submitted_password, email)
     user=find_by_email(email)
     return nil if user.nil?
@@ -30,6 +36,8 @@ class User < ActiveRecord::Base
       return nil 
     end
   end
+  
+  
   
   private
     def encrypt_password

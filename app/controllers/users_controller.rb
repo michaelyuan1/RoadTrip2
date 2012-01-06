@@ -5,11 +5,13 @@ class UsersController < ApplicationController
   end
   def show
     @user = User.find(params[:id])
+    @title = @user.name
     #params is equivalent to args in java
   end
   def create
     @user = User.new(params[:user])
     if @user.save
+      sign_in @user
       flash[:success] = "Welcome to the Sample App!"
       redirect_to @user
     else
